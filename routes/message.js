@@ -8,8 +8,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/', (req, res) => {
-    console.log('ok')
-    Message.find()
+    Message.find().sort('-createdAt')
         .then(messages => res.json(messages))
         .catch(err => console.log(err));
 });

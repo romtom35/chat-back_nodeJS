@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
-const mongoose = require('mo,goose');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
@@ -30,12 +30,12 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect('mongodb://localhost/chat');
+mongoose.connect('mongodb://localhost/chat', {useNewUrlParser: true });
 app.locals.db = mongoose.connection;
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/message', messageRouter);
+app.use('/messages', messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
